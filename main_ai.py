@@ -6,7 +6,14 @@ from hmm_model import HMM
 import pickle
 def run_ai_games(num_games=10000, sleep_time=0.8):
     hmm = HMM("Data/corpus.txt")
-    agent = RLAgent(epsilon=0.1)
+    agent = RLAgent(
+    alpha=0.15,
+    gamma=0.9,
+    epsilon=1.0,
+    epsilon_decay=0.99995,
+    epsilon_min=0.005
+)
+
 
     for game_num in range(1, num_games + 1):
         #os.system('cls' if os.name == 'nt' else 'clear')
@@ -49,12 +56,12 @@ def run_ai_games(num_games=10000, sleep_time=0.8):
             # print("==============================================")
             # print(f"Agent guessed: '{action.upper()}' | Reward: {reward}")
 
-        #print(f"\n✅ Game {game_num} finished! Word was: {game.played_word}")
-        #print(f"Total Reward: {total_reward}")
+        print(f"\n✅ Game {game_num} finished! Word was: {game.played_word}")
+       # print(f"Total Reward: {total_reward}")
     # after training
     with open("results/trained_qtable.pkl", "wb") as f:
         pickle.dump(agent.Q, f)
     print("🧠 Trained Q-table saved successfully!")
 
 if __name__ == "__main__":
-    run_ai_games(num_games=10000, sleep_time=0.8)
+    run_ai_games(num_games=1000, sleep_time=0.8)

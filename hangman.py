@@ -81,11 +81,11 @@ class hangman:
         if done and self.gameboard == self.gameboard_finished:
             reward = +200
         elif done:
-            reward = -100
+            reward = -200
         elif revealed_letters > 0:
-            reward = +20 * revealed_letters  # encourage multiple corrects
+            reward = +50 * revealed_letters  # encourage multiple corrects
         elif guess in self.guess_archive:
-            reward = -15  # penalize repeats
+            reward = -50  # penalize repeats
         else:
             reward = -10  # wrong guess
 
